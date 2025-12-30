@@ -220,7 +220,18 @@ class DatabaseSeeder extends Seeder
                 'lekarz_id' => $weterynarze[array_rand($weterynarze)]->id,
                 'zwierze_id' => $wszystkieZwierzeta[array_rand($wszystkieZwierzeta)]->id,
                 'data_wizyty' => $dzisiaj->copy()->setTime($h, 0),
-                'status' => 'umówiona',
+                'status' => fake()->randomElement(['umowiona', 'oczekujaca']),
+                'opis_zgloszenia' => fake()->sentence(10),
+            ]);
+        }
+
+        // Dodaj kilka wizyt OCZEKUJĄCYCH (bez przydzielonego lekarza) dla testów panelu admina
+        for ($i = 0; $i < 5; $i++) {
+            Wizyta::create([
+                'lekarz_id' => null,
+                'zwierze_id' => $wszystkieZwierzeta[array_rand($wszystkieZwierzeta)]->id,
+                'data_wizyty' => now()->addDays(rand(1, 7))->setTime(rand(9, 16), 0),
+                'status' => 'oczekujaca',
                 'opis_zgloszenia' => fake()->sentence(10),
             ]);
         }
@@ -235,10 +246,12 @@ class DatabaseSeeder extends Seeder
                 
                 if ($czyZakonczona) {
                     $dataWizyty = fake()->dateTimeBetween('-6 months', '-1 day');
-                    $status = 'zakończona';
+                    // Losowy status dla zakończonych: zakonczona lub anulowana
+                    $status = fake()->randomElement(['zakonczona', 'zakonczona', 'zakonczona', 'anulowana']);
                 } else {
                     $dataWizyty = fake()->dateTimeBetween('+1 day', '+3 months');
-                    $status = 'umówiona';
+                    // Losowy status dla przyszłych: umowiona lub oczekujaca
+                    $status = fake()->randomElement(['umowiona', 'oczekujaca']);
                 }
 
                 $wizyta = Wizyta::create([
@@ -250,7 +263,7 @@ class DatabaseSeeder extends Seeder
                 ]);
 
                 // Dla wizyt zakończonych dodajemy usługi, leki i dokumentację
-                if ($status === 'zakończona') {
+                if ($status === 'zakonczona') {
                     // Przypisanie 1-3 losowych usług
                     $iloscUslug = rand(1, 3);
                     $wybraneUslugi = $wszystkieUslugi->random($iloscUslug);

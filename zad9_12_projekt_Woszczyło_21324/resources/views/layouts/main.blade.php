@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Klinika Weterynaryjna')</title>
+    <title>@yield('title', 'Klinika Weterynaryjna VetCare')</title>
     
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +21,8 @@
         }
         body.high-contrast .bg-blue-600,
         body.high-contrast .bg-green-600,
-        body.high-contrast .bg-indigo-600 {
+        body.high-contrast .bg-indigo-600,
+        body.high-contrast .bg-teal-700 {
             background-color: #000 !important;
             border: 2px solid #ffff00 !important;
             color: #ffff00 !important;
@@ -49,11 +50,14 @@
 </head>
 <body class="min-h-screen bg-gray-50 flex flex-col">
     <!-- Nagłówek -->
-    <header class="bg-blue-600 text-white shadow-lg">
+    <header class="bg-teal-700 text-white shadow-lg">
         <nav class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <a href="{{ url('/') }}" class="text-2xl font-bold flex items-center gap-2">
-                    🐾 Klinika Weterynaryjna
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    VetCare Klinika
                 </a>
                 
                 <div class="flex items-center gap-4">
@@ -64,23 +68,25 @@
                         class="bg-yellow-400 text-black px-3 py-1 rounded text-sm font-semibold hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                         aria-label="Przełącz wersję kontrastową"
                     >
-                        ◐ Kontrast
+                        Wysoki kontrast
                     </button>
                     
                     @guest
-                        <a href="{{ route('login') }}" class="bg-white text-blue-600 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition">
+                        <a href="{{ route('login') }}" class="bg-white text-teal-700 px-4 py-2 rounded font-semibold hover:bg-gray-100 transition">
                             Zaloguj się
                         </a>
                     @else
                         <span class="text-sm">Witaj, {{ auth()->user()->imie }}!</span>
-                        @if(auth()->user()->isPracownik())
-                            <a href="{{ route('staff.dashboard') }}" class="text-white hover:text-yellow-200">Panel</a>
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-yellow-200">Panel Admina</a>
+                        @elseif(auth()->user()->isWeterynarz())
+                            <a href="{{ route('staff.dashboard') }}" class="text-white hover:text-yellow-200">Panel Lekarza</a>
                         @else
-                            <a href="{{ route('client.dashboard') }}" class="text-white hover:text-yellow-200">Panel</a>
+                            <a href="{{ route('client.dashboard') }}" class="text-white hover:text-yellow-200">Mój Panel</a>
                         @endif
                         <form action="{{ route('logout') }}" method="POST" class="inline">
                             @csrf
-                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded font-semibold hover:bg-red-600 transition">
+                            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded font-semibold hover:bg-red-700 transition">
                                 Wyloguj
                             </button>
                         </form>
@@ -112,7 +118,12 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-lg font-bold mb-4">🐾 Klinika Weterynaryjna</h3>
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                        VetCare Klinika
+                    </h3>
                     <p class="text-gray-400">Profesjonalna opieka dla Twoich pupili od 2010 roku.</p>
                 </div>
                 <div>

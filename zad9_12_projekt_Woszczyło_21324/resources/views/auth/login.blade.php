@@ -1,12 +1,17 @@
 @extends('layouts.main')
 
-@section('title', 'Logowanie - Klinika Weterynaryjna')
+@section('title', 'Logowanie - VetCare Klinika')
 
 @section('content')
 <div class="min-h-[60vh] flex items-center justify-center py-12 px-4">
     <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">🔐 Logowanie</h1>
+            <div class="flex justify-center mb-4">
+                <svg class="w-12 h-12 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800">Logowanie</h1>
             <p class="text-gray-600 mt-2">Zaloguj się do swojego konta</p>
         </div>
 
@@ -34,7 +39,7 @@
                     value="{{ old('email') }}"
                     required
                     autofocus
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     placeholder="twoj@email.pl"
                     aria-describedby="email-help"
                 >
@@ -50,33 +55,33 @@
                     id="haslo" 
                     name="haslo" 
                     required
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="••••••••"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    placeholder="********"
                 >
             </div>
 
             <div class="mb-6">
                 <label class="flex items-center">
-                    <input type="checkbox" name="remember" class="form-checkbox h-5 w-5 text-blue-600 rounded">
+                    <input type="checkbox" name="remember" class="form-checkbox h-5 w-5 text-teal-600 rounded">
                     <span class="ml-2 text-gray-700">Zapamiętaj mnie</span>
                 </label>
             </div>
 
             <button 
                 type="submit" 
-                class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                class="w-full bg-teal-600 text-white py-3 px-4 rounded-lg font-bold text-lg hover:bg-teal-700 transition focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
             >
                 Zaloguj się
             </button>
         </form>
 
         <div class="mt-6 text-center text-gray-600">
-            <p>Nie masz konta? <a href="#" class="text-blue-600 hover:underline">Skontaktuj się z nami</a></p>
+            <p>Nie masz konta? <a href="#" class="text-teal-600 hover:underline">Skontaktuj się z nami</a></p>
         </div>
 
         <!-- Informacje testowe -->
         <div class="mt-8 p-4 bg-gray-100 rounded-lg">
-            <p class="text-sm text-gray-600 font-semibold mb-2">🧪 Konta testowe:</p>
+            <p class="text-sm text-gray-600 font-semibold mb-2">Konta testowe:</p>
             <ul class="text-sm text-gray-600 space-y-1">
                 <li><strong>Admin:</strong> admin@klinika.pl / haslo123</li>
                 <li><strong>Lekarz:</strong> lekarz@klinika.pl / haslo123</li>

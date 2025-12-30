@@ -43,9 +43,12 @@ class LoginController extends Controller
             $user = Auth::user();
 
             // Przekierowanie zależne od roli
-            if ($user->isPracownik()) {
+            if ($user->isAdmin()) {
+                return redirect()->intended(route('admin.dashboard'))
+                    ->with('success', 'Witaj, ' . $user->imie . '! Zalogowano jako Administrator.');
+            } elseif ($user->isWeterynarz()) {
                 return redirect()->intended(route('staff.dashboard'))
-                    ->with('success', 'Witaj, ' . $user->imie . '! Zalogowano pomyślnie.');
+                    ->with('success', 'Witaj, dr ' . $user->imie . '! Zalogowano jako Weterynarz.');
             } else {
                 return redirect()->intended(route('client.dashboard'))
                     ->with('success', 'Witaj, ' . $user->imie . '! Zalogowano pomyślnie.');

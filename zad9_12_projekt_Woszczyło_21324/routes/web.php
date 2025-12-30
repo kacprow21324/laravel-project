@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,21 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 // ===== PANEL KLIENTA =====
 Route::middleware(['auth', 'role:klient'])->group(function () {
     Route::get('/panel-klienta', [ClientController::class, 'dashboard'])->name('client.dashboard');
+    Route::post('/panel-klienta/zwierzeta', [ClientController::class, 'storeZwierze'])->name('client.zwierzeta.store');
+    Route::post('/panel-klienta/wizyty', [ClientController::class, 'storeWizyta'])->name('client.wizyty.store');
 });
 
-// ===== PANEL PRACOWNIKA (Admin i Weterynarz) =====
-Route::middleware(['auth', 'role:pracownik'])->group(function () {
+// ===== PANEL WETERYNARZA =====
+Route::middleware(['auth', 'role:weterynarz'])->group(function () {
     Route::get('/panel-pracownika', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+    Route::get('/panel-pracownika/leki', [StaffController::class, 'leki'])->name('staff.leki');
+    Route::get('/panel-pracownika/pacjent/{id}', [StaffController::class, 'pacjent'])->name('staff.pacjent');
+});
+
+// ===== PANEL ADMINISTRATORA =====
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/panel-admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/panel-admin/leki', [AdminController::class, 'leki'])->name('admin.leki');
+    Route::post('/panel-admin/pracownicy', [AdminController::class, 'storePracownik'])->name('admin.pracownicy.store');
+    Route::post('/panel-admin/wizyty/{id}/przydziel', [AdminController::class, 'przydzielLekarza'])->name('admin.wizyty.przydziel');
 });
