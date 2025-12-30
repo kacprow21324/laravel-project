@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             Lek::create($lek);
         }
 
-        // 5. Utworzenie Admina
+        // 5. Utworzenie Admina (TESTOWY)
         $adminAdres = Adres::create([
             'miasto' => 'Warszawa',
             'ulica' => 'Centralna',
@@ -82,16 +82,73 @@ class DatabaseSeeder extends Seeder
             'imie' => 'Admin',
             'nazwisko' => 'Systemowy',
             'email' => 'admin@klinika.pl',
-            'haslo' => Hash::make('password'),
+            'haslo' => Hash::make('haslo123'),
             'telefon' => '123456789',
         ]);
 
-        // 6. Utworzenie 3 Weterynarzy
-        $weterynarze = [];
-        $imionaWet = ['Jan', 'Anna', 'Piotr'];
-        $nazwiskaWet = ['Kowalski', 'Nowak', 'Wiśniewski'];
+        // 6. Utworzenie weterynarza testowego
+        $lekarzAdres = Adres::create([
+            'miasto' => 'Warszawa',
+            'ulica' => 'Lekarska',
+            'nr_domu' => '10',
+            'kod_pocztowy' => '00-002',
+        ]);
 
-        for ($i = 0; $i < 3; $i++) {
+        $lekarzTestowy = Uzytkownik::create([
+            'adres_id' => $lekarzAdres->id,
+            'rola_id' => $weterynarzRole->id,
+            'imie' => 'Jan',
+            'nazwisko' => 'Kowalski',
+            'email' => 'lekarz@klinika.pl',
+            'haslo' => Hash::make('haslo123'),
+            'telefon' => '501234567',
+        ]);
+
+        // 7. Utworzenie klienta testowego ze zwierzętami
+        $klientAdres = Adres::create([
+            'miasto' => 'Kraków',
+            'ulica' => 'Kliencka',
+            'nr_domu' => '5',
+            'kod_pocztowy' => '30-001',
+        ]);
+
+        $klientTestowy = Uzytkownik::create([
+            'adres_id' => $klientAdres->id,
+            'rola_id' => $klientRole->id,
+            'imie' => 'Maria',
+            'nazwisko' => 'Nowak',
+            'email' => 'klient@klinika.pl',
+            'haslo' => Hash::make('haslo123'),
+            'telefon' => '601234567',
+        ]);
+
+        // Zwierzęta dla klienta testowego
+        $zwierzeTestowe1 = Zwierze::create([
+            'uzytkownik_id' => $klientTestowy->id,
+            'gatunek_id' => $pies->id,
+            'imie' => 'Burek',
+            'data_urodzenia' => '2020-05-15',
+            'plec' => 'samiec',
+            'waga' => 25.50,
+            'nr_czipa' => 'PL123456789',
+        ]);
+
+        $zwierzeTestowe2 = Zwierze::create([
+            'uzytkownik_id' => $klientTestowy->id,
+            'gatunek_id' => $kot->id,
+            'imie' => 'Mruczek',
+            'data_urodzenia' => '2021-03-10',
+            'plec' => 'samiec',
+            'waga' => 4.20,
+            'nr_czipa' => 'PL987654321',
+        ]);
+
+        // 8. Utworzenie dodatkowych Weterynarzy
+        $weterynarze = [$lekarzTestowy];
+        $imionaWet = ['Anna', 'Piotr'];
+        $nazwiskaWet = ['Nowak', 'Wiśniewski'];
+
+        for ($i = 0; $i < 2; $i++) {
             $adres = Adres::create([
                 'miasto' => fake()->city(),
                 'ulica' => fake()->streetName(),
@@ -104,21 +161,20 @@ class DatabaseSeeder extends Seeder
                 'rola_id' => $weterynarzRole->id,
                 'imie' => $imionaWet[$i],
                 'nazwisko' => $nazwiskaWet[$i],
-                'email' => 'weterynarz' . ($i + 1) . '@klinika.pl',
-                'haslo' => Hash::make('password'),
+                'email' => 'weterynarz' . ($i + 2) . '@klinika.pl',
+                'haslo' => Hash::make('haslo123'),
                 'telefon' => '50' . rand(1000000, 9999999),
             ]);
         }
 
-        // 7. Utworzenie 10 Klientów z zwierzętami
-        $imionaKlientow = ['Maria', 'Tomasz', 'Katarzyna', 'Michał', 'Ewa', 'Paweł', 'Magdalena', 'Krzysztof', 'Joanna', 'Andrzej'];
-        $nazwiskaKlientow = ['Kowalska', 'Nowacki', 'Lewandowska', 'Zieliński', 'Wójcik', 'Kamiński', 'Dąbrowska', 'Mazur', 'Krawczyk', 'Piotrowski'];
+        // 9. Utworzenie dodatkowych Klientów z zwierzętami
+        $wszystkieZwierzeta = [$zwierzeTestowe1, $zwierzeTestowe2];
+        $imionaKlientow = ['Tomasz', 'Katarzyna', 'Michał', 'Ewa', 'Paweł', 'Magdalena', 'Krzysztof', 'Joanna', 'Andrzej'];
+        $nazwiskaKlientow = ['Nowacki', 'Lewandowska', 'Zieliński', 'Wójcik', 'Kamiński', 'Dąbrowska', 'Mazur', 'Krawczyk', 'Piotrowski'];
         
-        $imionaZwierzat = ['Burek', 'Azor', 'Rex', 'Max', 'Luna', 'Bella', 'Charlie', 'Mruczek', 'Filemon', 'Reksio', 'Puszek', 'Łatka'];
+        $imionaZwierzat = ['Azor', 'Rex', 'Max', 'Luna', 'Bella', 'Charlie', 'Filemon', 'Reksio', 'Puszek', 'Łatka'];
 
-        $wszystkieZwierzeta = [];
-
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 9; $i++) {
             $adres = Adres::create([
                 'miasto' => fake()->city(),
                 'ulica' => fake()->streetName(),
@@ -131,8 +187,8 @@ class DatabaseSeeder extends Seeder
                 'rola_id' => $klientRole->id,
                 'imie' => $imionaKlientow[$i],
                 'nazwisko' => $nazwiskaKlientow[$i],
-                'email' => 'klient' . ($i + 1) . '@example.com',
-                'haslo' => Hash::make('password'),
+                'email' => 'klient' . ($i + 2) . '@example.com',
+                'haslo' => Hash::make('haslo123'),
                 'telefon' => '60' . rand(1000000, 9999999),
             ]);
 
@@ -153,10 +209,21 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        // 8. Utworzenie wizyt
-        $statusy = ['zakończona', 'umówiona', 'anulowana'];
+        // 10. Utworzenie wizyt (w tym dzisiejsze dla testów)
         $wszystkieUslugi = Usluga::all();
         $wszystkieLeki = Lek::all();
+
+        // Dodaj kilka wizyt na DZISIAJ dla testów panelu pracownika
+        $dzisiaj = now();
+        for ($h = 9; $h <= 15; $h += 2) {
+            $wizytaDzis = Wizyta::create([
+                'lekarz_id' => $weterynarze[array_rand($weterynarze)]->id,
+                'zwierze_id' => $wszystkieZwierzeta[array_rand($wszystkieZwierzeta)]->id,
+                'data_wizyty' => $dzisiaj->copy()->setTime($h, 0),
+                'status' => 'umówiona',
+                'opis_zgloszenia' => fake()->sentence(10),
+            ]);
+        }
 
         foreach ($wszystkieZwierzeta as $zwierze) {
             // Każde zwierzę ma 2-4 wizyty
@@ -167,10 +234,10 @@ class DatabaseSeeder extends Seeder
                 $czyZakonczona = rand(1, 10) <= 7;
                 
                 if ($czyZakonczona) {
-                    $dataWizyty = fake()->dateTimeBetween('-6 months', 'now');
+                    $dataWizyty = fake()->dateTimeBetween('-6 months', '-1 day');
                     $status = 'zakończona';
                 } else {
-                    $dataWizyty = fake()->dateTimeBetween('now', '+3 months');
+                    $dataWizyty = fake()->dateTimeBetween('+1 day', '+3 months');
                     $status = 'umówiona';
                 }
 
