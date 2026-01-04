@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Wizyta extends Model
 {
@@ -22,6 +23,45 @@ class Wizyta extends Model
     protected $casts = [
         'data_wizyty' => 'datetime',
     ];
+
+    protected $appends = ['data_zakonczenia', 'czas_trwania_minuty'];
+
+    /**
+     * Accessor - oblicza czas zakończenia wizyty na podstawie sumy czasu trwania usług.
+     * Zwraca datę zakończenia jako Carbon lub null, jeśli brak usług.
+     */
+    public function getDataZakonczeniaAttribute(): ?Carbon
+    {
+        $sumaCzasu = $this->uslugi->sum('czas_trwania_minuty');
+        
+        // Jeśli brak usług, domyślnie dodajemy 30 minut
+        if ($sumaCzasu == 0) {
+            $sumaCzasu = 30;
+        }
+        
+        return $this->data_wizyty ? $this->data_wizyty->copy()->addMinutes($sumaCzasu) : null;
+    }
+
+    /**
+     * Accessor - zwraca całkowity czas trwania wizyty w minutach.
+     */
+    public function getCzasTrwaniaMinutyAttribute(): int
+    {
+        $sumaCzasu = $this->uslugi->sum('czas_trwania_minuty');
+        
+        return $sumaCzasu > 0 ? $sumaCzasu : 30;
+    }
+
+    /**
+     * Helper - zwraca sformatowany zakres czasowy wizyty np. "14:00 - 14:45".
+     */
+    public function getZakresCzasowyAttribute(): string
+    {
+        $start = $this->data_wizyty ? $this->data_wizyty->format('H:i') : '--:--';
+        $koniec = $this->data_zakonczenia ? $this->data_zakonczenia->format('H:i') : '--:--';
+        
+        return "{$start} - {$koniec}";
+    }
 
     public function lekarz()
     {

@@ -80,6 +80,9 @@ class ClientController extends Controller
             ->where('uzytkownik_id', auth()->id())
             ->firstOrFail();
 
+        // Pobierz obiekt usługi, aby zapisać cenę aktualną
+        $usluga = Usluga::findOrFail($request->usluga_id);
+
         $wizyta = Wizyta::create([
             'zwierze_id' => $request->zwierze_id,
             'lekarz_id' => null, // Do przydzielenia przez admina
@@ -88,8 +91,11 @@ class ClientController extends Controller
             'opis_zgloszenia' => $request->opis_zgloszenia,
         ]);
 
-        // Dołącz usługę do wizyty
-        $wizyta->uslugi()->attach($request->usluga_id);
+        // Dołącz usługę do wizyty wraz z ceną w chwili wizyty
+        $wizyta->uslugi()->attach($usluga->id, [
+            'cena_w_chwili_wizyty' => $usluga->cena_aktualna,
+            'ilosc' => 1
+        ]);
 
         return redirect()->route('client.dashboard')->with('success', 'Wizyta została zarezerwowana! Oczekuje na zatwierdzenie przez klinikę.');
     }

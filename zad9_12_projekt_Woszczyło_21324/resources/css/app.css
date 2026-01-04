@@ -1,0 +1,239 @@
+/* ========================================================================
+   VETCARE KLINIKA - STYLE CSS Z WYTYCZNYMI WCAG 2.1 AA
+   ======================================================================== */
+
+/* ========== 1. FOCUS INDICATORS (WCAG 2.4.7 - Focus Visible) ========== */
+/* Wyraźny fokus dla wszystkich interaktywnych elementów */
+*:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+*:focus-visible {
+    outline: 3px solid #0056b3 !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.25) !important;
+}
+
+/* Specjalne style fokusu dla przycisków */
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid #0056b3;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+/* Fokus dla pól formularza */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    border: 2px solid #0056b3 !important;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2) !important;
+}
+
+/* ========== 2. SKIP LINK (WCAG 2.4.1 - Bypass Blocks) ========== */
+.skip-link {
+    position: absolute;
+    top: -60px;
+    left: 10px;
+    z-index: 10000;
+    background-color: #0056b3;
+    color: #ffffff;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 10px;
+    outline: 3px solid #ffff00;
+    outline-offset: 2px;
+}
+
+/* Klasa helper dla screen readers only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ========== 3. HIGH CONTRAST MODE (WCAG 1.4.3 - Contrast Minimum) ========== */
+/* Tryb wysokiego kontrastu - żółty tekst na czarnym tle */
+body.high-contrast {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+}
+
+body.high-contrast * {
+    border-color: #FFFF00 !important;
+}
+
+/* Wszystkie tła na czarno */
+body.high-contrast .bg-white,
+body.high-contrast .bg-gray-50,
+body.high-contrast .bg-gray-100,
+body.high-contrast .bg-gray-200,
+body.high-contrast .bg-teal-50,
+body.high-contrast .bg-blue-50,
+body.high-contrast .bg-green-50,
+body.high-contrast .bg-red-50,
+body.high-contrast .bg-yellow-50 {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+/* Przyciski i elementy aktywne */
+body.high-contrast button,
+body.high-contrast .bg-blue-600,
+body.high-contrast .bg-green-600,
+body.high-contrast .bg-red-600,
+body.high-contrast .bg-teal-600,
+body.high-contrast .bg-teal-700,
+body.high-contrast .bg-yellow-400,
+body.high-contrast .bg-indigo-600 {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 3px solid #FFFF00 !important;
+    font-weight: bold !important;
+}
+
+/* Linki - cyjan z podkreśleniem */
+body.high-contrast a {
+    color: #00FFFF !important;
+    text-decoration: underline !important;
+    font-weight: bold !important;
+}
+
+body.high-contrast a:hover,
+body.high-contrast a:focus {
+    color: #FFFFFF !important;
+    background-color: #0000FF !important;
+    padding: 2px 4px;
+}
+
+/* Pola formularza */
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 3px solid #FFFF00 !important;
+}
+
+body.high-contrast input::placeholder {
+    color: #999900 !important;
+}
+
+/* Tabele */
+body.high-contrast table,
+body.high-contrast th,
+body.high-contrast td {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+/* Wszystkie teksty na żółto */
+body.high-contrast .text-gray-400,
+body.high-contrast .text-gray-500,
+body.high-contrast .text-gray-600,
+body.high-contrast .text-gray-700,
+body.high-contrast .text-gray-800,
+body.high-contrast .text-gray-900,
+body.high-contrast .text-white,
+body.high-contrast .text-black,
+body.high-contrast .text-teal-600,
+body.high-contrast .text-blue-600,
+body.high-contrast .text-green-600 {
+    color: #FFFF00 !important;
+}
+
+/* Cienie */
+body.high-contrast .shadow,
+body.high-contrast .shadow-lg,
+body.high-contrast .shadow-xl {
+    box-shadow: 0 0 20px #FFFF00 !important;
+}
+
+/* Badge/odznaki statusów */
+body.high-contrast .bg-green-100,
+body.high-contrast .bg-blue-100,
+body.high-contrast .bg-yellow-100,
+body.high-contrast .bg-red-100 {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+/* ========== 4. FORM ACCESSIBILITY ========== */
+/* Poprawne wyświetlanie błędów walidacji */
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+body.high-contrast .error-message {
+    color: #FF0000 !important;
+    font-weight: bold !important;
+    border: 2px solid #FF0000 !important;
+    padding: 4px 8px;
+    background-color: #000000 !important;
+}
+
+/* Label zawsze widoczne */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Required fields indicator */
+label.required::after {
+    content: " *";
+    color: #dc2626;
+    font-weight: bold;
+}
+
+body.high-contrast label.required::after {
+    color: #FF0000 !important;
+}
+
+/* ========== 5. RESPONSIVE & MOBILE ACCESSIBILITY ========== */
+/* Większe obszary dotykowe na mobilnych (min 44x44px) */
+@media (max-width: 768px) {
+    button,
+    a.button,
+    input[type="submit"],
+    input[type="button"] {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px 16px;
+    }
+}
+
+/* ========== 6. PRINT STYLES ========== */
+@media print {
+    .skip-link,
+    #contrast-toggle,
+    nav,
+    footer {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}

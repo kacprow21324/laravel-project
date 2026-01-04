@@ -16,7 +16,7 @@
                 </h1>
                 <p class="text-gray-600 mt-2">Przegląd stanów magazynowych leków i preparatów</p>
             </div>
-            <a href="{{ route('staff.dashboard') }}" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition flex items-center gap-2">
+            <a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('staff.dashboard') }}" class="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition flex items-center gap-2">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>

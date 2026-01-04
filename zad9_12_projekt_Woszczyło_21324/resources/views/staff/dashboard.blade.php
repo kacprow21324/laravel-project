@@ -96,7 +96,7 @@
                         @foreach($dzisiejszeWizyty as $wizyta)
                             <tr class="hover:bg-teal-50">
                                 <td class="px-6 py-4 font-semibold text-teal-600">
-                                    {{ $wizyta->data_wizyty->format('H:i') }}
+                                    {{ $wizyta->zakres_czasowy }}
                                 </td>
                                 <td class="px-6 py-4 font-semibold">
                                     {{ $wizyta->zwierze->imie }}
@@ -134,10 +134,16 @@
                                     </p>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('staff.pacjent', $wizyta->zwierze->id) }}" 
-                                       class="bg-teal-600 text-white px-3 py-1 rounded text-sm hover:bg-teal-700 transition">
-                                        Karta pacjenta
-                                    </a>
+                                    <div class="flex gap-2">
+                                        <a href="{{ route('staff.wizyta', $wizyta->id) }}" 
+                                           class="bg-teal-600 text-white px-3 py-1 rounded text-sm hover:bg-teal-700 transition">
+                                            Karta wizyty
+                                        </a>
+                                        <a href="{{ route('staff.pacjent', $wizyta->zwierze->id) }}" 
+                                           class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition">
+                                            Pacjent
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

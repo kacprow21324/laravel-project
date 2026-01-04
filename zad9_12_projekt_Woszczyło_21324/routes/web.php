@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +24,17 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+// Strona oferty/cennika
+Route::get('/oferta', [PageController::class, 'oferta'])->name('oferta');
+
 // ===== AUTENTYKACJA =====
 // Logowanie
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit')->middleware('guest');
+
+// Rejestracja
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register')->middleware('guest');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.submit')->middleware('guest');
 
 // Wylogowanie
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
@@ -42,6 +51,9 @@ Route::middleware(['auth', 'role:weterynarz'])->group(function () {
     Route::get('/panel-pracownika', [StaffController::class, 'dashboard'])->name('staff.dashboard');
     Route::get('/panel-pracownika/leki', [StaffController::class, 'leki'])->name('staff.leki');
     Route::get('/panel-pracownika/pacjent/{id}', [StaffController::class, 'pacjent'])->name('staff.pacjent');
+    Route::get('/panel-pracownika/wizyta/{id}', [StaffController::class, 'wizyta'])->name('staff.wizyta');
+    Route::post('/panel-pracownika/wizyta/{id}/dokumentacja', [StaffController::class, 'updateDokumentacja'])->name('staff.wizyta.dokumentacja');
+    Route::post('/panel-pracownika/wizyta/{id}/przepisz-lek', [StaffController::class, 'przepiszLek'])->name('staff.wizyta.przepisz-lek');
 });
 
 // ===== PANEL ADMINISTRATORA =====

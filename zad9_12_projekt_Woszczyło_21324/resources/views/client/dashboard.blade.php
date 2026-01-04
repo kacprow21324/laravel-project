@@ -88,39 +88,71 @@
                 Umów Wizytę
             </h2>
             @if($zwierzeta->count() > 0)
-                <form action="{{ route('client.wizyty.store') }}" method="POST" class="space-y-4">
+                <form action="{{ route('client.wizyty.store') }}" method="POST" class="space-y-4" aria-label="Formularz umawiania wizyty">
                     @csrf
                     <div>
-                        <label for="zwierze_id" class="block text-sm font-medium text-gray-700 mb-1">Zwierzę *</label>
+                        <label for="zwierze_id" class="block text-sm font-medium text-gray-700 mb-1">
+                            Zwierzę <span class="text-red-600" aria-label="pole wymagane">*</span>
+                        </label>
                         <select name="zwierze_id" id="zwierze_id" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                aria-required="true"
+                                aria-describedby="zwierze-help">
                             <option value="">-- Wybierz zwierzę --</option>
                             @foreach($zwierzeta as $zwierze)
                                 <option value="{{ $zwierze->id }}">{{ $zwierze->imie }} ({{ $zwierze->gatunek->nazwa }})</option>
                             @endforeach
                         </select>
+                        <p id="zwierze-help" class="text-xs text-gray-500 mt-1">Wybierz zwierzę, które wymaga konsultacji</p>
+                        @error('zwierze_id')
+                            <span class="error-message" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
-                        <label for="usluga_id" class="block text-sm font-medium text-gray-700 mb-1">Rodzaj usługi *</label>
+                        <label for="usluga_id" class="block text-sm font-medium text-gray-700 mb-1">
+                            Rodzaj usługi <span class="text-red-600" aria-label="pole wymagane">*</span>
+                        </label>
                         <select name="usluga_id" id="usluga_id" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                aria-required="true"
+                                aria-describedby="usluga-help">
                             <option value="">-- Wybierz usługę --</option>
                             @foreach($uslugi as $usluga)
-                                <option value="{{ $usluga->id }}">{{ $usluga->nazwa }} - {{ number_format($usluga->cena, 2, ',', ' ') }} zł</option>
+                                <option value="{{ $usluga->id }}">{{ $usluga->nazwa }} - {{ number_format($usluga->cena_aktualna, 2, ',', ' ') }} zł ({{ $usluga->czas_trwania_minuty }} min)</option>
                             @endforeach
                         </select>
+                        <p id="usluga-help" class="text-xs text-gray-500 mt-1">Wybierz rodzaj wizyty (ceny orientacyjne)</p>
+                        @error('usluga_id')
+                            <span class="error-message" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
-                        <label for="data_wizyty" class="block text-sm font-medium text-gray-700 mb-1">Preferowana data i godzina *</label>
+                        <label for="data_wizyty" class="block text-sm font-medium text-gray-700 mb-1">
+                            Preferowana data i godzina <span class="text-red-600" aria-label="pole wymagane">*</span>
+                        </label>
                         <input type="datetime-local" name="data_wizyty" id="data_wizyty" required
                                min="{{ now()->addDay()->format('Y-m-d\TH:i') }}"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                               aria-required="true"
+                               aria-describedby="data-help">
+                        <p id="data-help" class="text-xs text-gray-500 mt-1">Wizyta nie wcześniej niż jutro</p>
+                        @error('data_wizyty')
+                            <span class="error-message" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div>
-                        <label for="opis_zgloszenia" class="block text-sm font-medium text-gray-700 mb-1">Opis problemu / powód wizyty *</label>
+                        <label for="opis_zgloszenia" class="block text-sm font-medium text-gray-700 mb-1">
+                            Opis problemu / powód wizyty <span class="text-red-600" aria-label="pole wymagane">*</span>
+                        </label>
                         <textarea name="opis_zgloszenia" id="opis_zgloszenia" rows="3" required
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                                  placeholder="Opisz powód wizyty lub objawy..."></textarea>
+                                  placeholder="Opisz powód wizyty lub objawy..."
+                                  aria-required="true"
+                                  aria-describedby="opis-help"></textarea>
+                        <p id="opis-help" class="text-xs text-gray-500 mt-1">Opisz objawy, aby lekarz mógł się lepiej przygotować</p>
+                        @error('opis_zgloszenia')
+                            <span class="error-message" role="alert">{{ $message }}</span>
+                        @enderror
                     </div>
                     <button type="submit" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition">
                         Zarezerwuj wizytę
