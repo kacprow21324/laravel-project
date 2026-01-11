@@ -241,3 +241,78 @@ body.high-contrast [class*="rounded"] {
         text-decoration: underline;
     }
 }
+
+/* ========== TEXT-TO-SPEECH (LEKTOR) STYLES ========== */
+#tts-button {
+    position: relative;
+    overflow: hidden;
+}
+
+#tts-button.reading {
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important;
+    animation: tts-pulse 1.5s ease-in-out infinite;
+}
+
+#tts-button.reading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    animation: tts-wave 1.5s ease-in-out infinite;
+}
+
+@keyframes tts-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+        transform: scale(1.05);
+    }
+}
+
+@keyframes tts-wave {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* High contrast mode for TTS button */
+body.high-contrast #tts-button {
+    background: #000000 !important;
+    border: 2px solid #FFFF00 !important;
+}
+
+body.high-contrast #tts-button.reading {
+    background: #990000 !important;
+    border: 2px solid #FF0000 !important;
+    animation: none;
+}
+
+body.high-contrast #tts-button.reading::before {
+    display: none;
+}
+
+/* Reduced motion preference for TTS button */
+@media (prefers-reduced-motion: reduce) {
+    #tts-button.reading {
+        animation: none;
+    }
+    
+    #tts-button.reading::before {
+        animation: none;
+        display: none;
+    }
+}
+
+
