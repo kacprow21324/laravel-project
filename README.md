@@ -101,6 +101,8 @@ Projekt posiada zestaw testów jednostkowych/funkcjonalnych (Feature Tests) spra
 **Uruchomienie testów:**
 ```bash
 php artisan test
+```
+---
 
 ## Konta Testowe
 
