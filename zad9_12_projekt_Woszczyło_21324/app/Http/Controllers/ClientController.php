@@ -45,9 +45,12 @@ class ClientController extends Controller
             'imie' => 'required|string|max:100',
             'gatunek_id' => 'required|exists:gatunki,id',
             'plec' => 'required|in:samiec,samica',
-            'data_urodzenia' => 'nullable|date|before:today',
-            'waga' => 'nullable|numeric|min:0|max:500',
+            'data_urodzenia' => 'nullable|date|before_or_equal:today',
+            'waga' => 'nullable|numeric|gt:0|max:500',
             'nr_czipa' => 'nullable|string|max:50',
+        ], [
+            'waga.gt' => 'Waga musi być większa od zera.',
+            'data_urodzenia.before_or_equal' => 'Data urodzenia nie może być z przyszłości.',
         ]);
 
         Zwierze::create([
@@ -71,7 +74,37 @@ class ClientController extends Controller
         $request->validate([
             'zwierze_id' => 'required|exists:zwierzeta,id',
             'usluga_id' => 'required|exists:uslugi,id',
-            'data_wizyty' => 'required|date|after:now',
+            'data_wizyty' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $data = \Carbon\Carbon::parse($value);
+                    $teraz = \Carbon\Carbon::now();
+                    
+                    // Sprawdzenie czy data nie jest w przeszłości
+                    if ($data->isPast() && !$data->isToday()) {
+                        $fail('Data wizyty nie może być w przeszłości.');
+                        return;
+                    }
+                    
+                    // Jeśli data to dzisiaj - sprawdz czy godzina nie jest przeszła
+                    if ($data->isToday() && $data->lessThanOrEqualTo($teraz)) {
+                        $fail('Wybrana godzina już minęła. Proszę wybrać późniejszą godzinę.');
+                        return;
+                    }
+                    
+                    // Sprawdzenie godzin pracy - codziennie 8:00 - 20:00
+                    $godzina = $data->hour;
+                    $minuty = $data->minute;
+                    $czasMinuty = $godzina * 60 + $minuty;
+                    
+                    // 8:00 = 480 minut, 20:00 = 1200 minut
+                    if ($czasMinuty < 480 || $czasMinuty >= 1200) {
+                        $fail('Klinika jest otwarta codziennie od 8:00 do 20:00.');
+                        return;
+                    }
+                },
+            ],
             'opis_zgloszenia' => 'required|string|max:1000',
         ]);
 

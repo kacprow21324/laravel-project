@@ -25,8 +25,53 @@
         </div>
     </div>
 
+    <!-- Formularz dodawania leku -->
+    <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Dodaj nowy lek
+        </h2>
+        <form action="{{ route('leki.store') }}" method="POST" class="grid md:grid-cols-5 gap-4">
+            @csrf
+            <div>
+                <label for="nazwa" class="block text-sm font-medium text-gray-700 mb-1">Nazwa leku *</label>
+                <input type="text" name="nazwa" id="nazwa" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="np. Amoksycylina">
+            </div>
+            <div>
+                <label for="ilosc_na_stanie" class="block text-sm font-medium text-gray-700 mb-1">Ilość *</label>
+                <input type="number" name="ilosc_na_stanie" id="ilosc_na_stanie" required min="0"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="np. 100">
+            </div>
+            <div>
+                <label for="jednostka" class="block text-sm font-medium text-gray-700 mb-1">Jednostka *</label>
+                <input type="text" name="jednostka" id="jednostka" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="np. tabl., ml">
+            </div>
+            <div>
+                <label for="cena_jednostkowa" class="block text-sm font-medium text-gray-700 mb-1">Cena (zł) *</label>
+                <input type="number" name="cena_jednostkowa" id="cena_jednostkowa" required min="0" step="0.01"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="np. 15.50">
+            </div>
+            <div class="flex items-end">
+                <button type="submit" class="w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Dodaj lek
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- Statystyki magazynu -->
-    <section class="mb-8">
+    <div class="mb-8">
         <div class="grid md:grid-cols-4 gap-6">
             <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between">
@@ -81,7 +126,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Lista leków -->
     <section>

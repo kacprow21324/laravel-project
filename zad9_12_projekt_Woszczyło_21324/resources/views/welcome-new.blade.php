@@ -59,7 +59,7 @@
             
             <div class="grid md:grid-cols-2 gap-12 items-center mb-12">
                 <div>
-                    <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?w=600&h=400&fit=crop" alt="Weterynarz z psem" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
+                    <img src="{{ asset('image/weterynarz_pies.jpg') }}" alt="Weterynarz badający psa na stole zabiegowym" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
                 </div>
                 <div>
                     <h3 class="text-3xl font-bold mb-4 text-gray-800">Doświadczony Zespół</h3>
@@ -85,7 +85,7 @@
                     </p>
                 </div>
                 <div class="order-1 md:order-2">
-                    <img src="https://images.unsplash.com/photo-1530126483408-aa533e55bdb2?w=600&h=400&fit=crop" alt="Kot u weterynarza" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
+                    <img src="{{ asset('image/sprzet.jpg') }}" alt="Nowoczesny sprzęt weterynaryjny: aparat USG i narzędzia diagnostyczne" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
                 </div>
             </div>
         </div>

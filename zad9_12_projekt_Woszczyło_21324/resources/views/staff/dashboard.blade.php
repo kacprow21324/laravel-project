@@ -31,7 +31,7 @@
     </div>
 
     <!-- Statystyki -->
-    <section class="mb-8">
+    <div class="mb-8">
         <div class="grid md:grid-cols-3 gap-6">
             <div class="bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between">
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Dzisiejsze wizyty -->
     <section class="mb-8">

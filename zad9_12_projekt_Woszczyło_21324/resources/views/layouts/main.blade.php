@@ -160,7 +160,7 @@
             </div>
             <div class="border-t border-gray-800 pt-8">
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-gray-500 text-sm">&copy; 2025 Klinika Weterynaryjna VetCare. Wszelkie prawa zastrzeżone.</p>
+                    <p class="text-gray-500 text-sm">&copy; 2026 Klinika Weterynaryjna VetCare. Wszelkie prawa zastrzeżone.</p>
                     <p class="text-sm">
                         <span class="text-gray-500">Projekt:</span> 
                         <span class="font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">Kacper Woszczyło 21324</span>

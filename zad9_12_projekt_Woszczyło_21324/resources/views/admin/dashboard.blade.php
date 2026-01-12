@@ -32,7 +32,7 @@
     </div>
 
     <!-- Statystyki globalne -->
-    <section class="mb-8">
+    <div class="mb-8">
         <div class="grid md:grid-cols-4 gap-6">
             <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between">
@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <div class="grid lg:grid-cols-3 gap-8 mb-8">
         <!-- Formularz dodawania pracownika -->
@@ -152,6 +152,7 @@
                                 <th class="px-4 py-3 text-left text-gray-700 font-semibold">Email</th>
                                 <th class="px-4 py-3 text-left text-gray-700 font-semibold">Telefon</th>
                                 <th class="px-4 py-3 text-left text-gray-700 font-semibold">Rola</th>
+                                <th class="px-4 py-3 text-left text-gray-700 font-semibold">Akcje</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
@@ -171,6 +172,23 @@
                                             <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm">Admin</span>
                                         @else
                                             <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-sm">Weterynarz</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($pracownik->id !== auth()->id())
+                                            <form action="{{ route('admin.uzytkownicy.destroy', $pracownik->id) }}" method="POST" class="inline"
+                                                  onsubmit="return confirm('Czy na pewno chcesz usunąć użytkownika {{ $pracownik->imie }} {{ $pracownik->nazwisko }}?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="bg-red-100 text-red-600 hover:bg-red-200 px-2 py-1 rounded text-sm transition flex items-center gap-1">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                    Usuń
+                                                </button>
+                                            </form>
+                                        @else
+                                            <span class="text-gray-400 text-sm">Twoje konto</span>
                                         @endif
                                     </td>
                                 </tr>

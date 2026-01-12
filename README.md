@@ -2,46 +2,50 @@
 
 Kompleksowa aplikacja internetowa stworzona w oparciu o framework Laravel, służąca do obsługi procesów biznesowych i medycznych w klinice weterynaryjnej. System oferuje dedykowane panele dla Administratorów, Personelu Medycznego oraz Klientów, zapewniając pełną obsługę wizyt, dokumentacji medycznej oraz magazynu leków.
 
-Projekt kładzie szczególny nacisk na dostępność cyfrową (WCAG 2.1 AA) oraz nowoczesny interfejs użytkownika (Medical Modern UI).
+Projekt kładzie szczególny nacisk na **dostępność cyfrową (WCAG 2.1 AA)**, poprawność semantyczną HTML5 oraz niezawodność potwierdzoną testami automatycznymi.
 
 ## Kluczowe Funkcjonalności
 
-### 1. Dostępność i UX (WCAG & Design)
-Projekt został zaprojektowany z myślą o inkluzywności i nowoczesnych standardach webowych:
-* **Zgodność z WCAG 2.1 AA:** Pełna obsługa nawigacji klawiaturą, poprawne atrybuty ARIA oraz semantyczny HTML.
-* **Tryb Wysokiego Kontrastu:** Dedykowany styl nadpisujący kolory witryny na schemat czarno-żółty/cyjan, zapewniający maksymalną czytelność.
-* **Skalowanie Tekstu:** Widget pozwalający na dynamiczną zmianę wielkości czcionki (A-, A, A+) z zapisem preferencji użytkownika.
-* **Medical Modern UI:** Estetyczny, przejrzysty interfejs oparty na kartach, cieniach i gradientach, zbudowany przy użyciu Tailwind CSS.
+### 1. Dostępność i UX (Premium Accessibility)
+Projekt wyznacza nowe standardy w dostępności aplikacji webowych:
+* **Lektor (Text-to-Speech):** Zintegrowany syntezator mowy (Web Speech API), który czyta treść strony, wspierając osoby niewidome i słabowidzące.
+* **Zgodność z WCAG 2.1 AA:** Pełna obsługa nawigacji klawiaturą, poprawne atrybuty ARIA i semantyczny kod HTML (zwalidowany w W3C Validator).
+* **Tryb Wysokiego Kontrastu:** Dedykowany styl czarno-żółty/cyjan dla maksymalnej czytelności.
+* **Skalowanie Tekstu:** Widget pozwalający na dynamiczną zmianę wielkości czcionki (A-, A, A+).
+* **Visual Feedback:** Wyraźne komunikaty błędów w formularzach (czerwone ramki, teksty pomocnicze) informujące użytkownika o niepoprawnych danych.
 
-### 2. Panel Klienta (Frontend)
-Interfejs przeznaczony dla właścicieli zwierząt:
-* **Samodzielna rejestracja:** Możliwość założenia konta z automatycznym przypisaniem roli Klienta.
-* **Zarządzanie pupilami:** Dodawanie zwierząt do systemu wraz ze zdjęciem profilowym (upload plików).
-* **System rezerwacji:** Umawianie wizyt poprzez wybór lekarza, usługi i terminu.
-* **Historia leczenia:** Wgląd w historię odbytych wizyt, diagnozy oraz przepisane leki.
-* **Dynamiczny Cennik:** Podstrona Oferta pobierająca aktualne ceny zabiegów bezpośrednio z bazy danych.
+### 2. Panel Klienta
+Interfejs dla właścicieli zwierząt z zaawansowaną walidacją biznesową:
+* **Rejestracja i Profil:** Zakładanie konta i zarządzanie danymi.
+* **Zarządzanie pupilami:** Dodawanie zwierząt (blokada ujemnej wagi, blokada dat urodzenia z przyszłości).
+* **Inteligentny System Rezerwacji:**
+    * Umawianie wizyt w godzinach pracy kliniki (**Codziennie 08:00 - 20:00**).
+    * Blokada umawiania wizyt wstecznych.
+    * Możliwość umówienia wizyty "na dziś" (tylko na nadchodzące godziny).
+* **Historia i Cennik:** Wgląd w historię leczenia i dynamiczny cennik usług.
 
-### 3. Panel Lekarza (Backend Operacyjny)
-Narzędzia wspierające codzienną pracę weterynarza:
-* **Dashboard:** Szybki podgląd nadchodzących wizyt i statystyk.
-* **Obsługa wizyty:** Wypełnianie karty pacjenta, diagnozy i zaleceń.
-* **Przepisywanie leków:** Moduł zintegrowany z magazynem – system weryfikuje stan magazynowy w czasie rzeczywistym i blokuje przepisanie ilości większej niż dostępna.
-* **Podgląd historii:** Dostęp do pełnej dokumentacji medycznej pacjenta.
+### 3. Panel Lekarza i Magazyn
+Narzędzia wspierające pracę medyczną:
+* **Karty Pacjenta:** Diagnozy, zalecenia i historia chorób.
+* **Zarządzanie Lekami:** Możliwość dodawania nowych leków do systemu oraz przepisywania ich pacjentom (z automatyczną kontrolą stanów magazynowych).
+* **Dashboard:** Szybki podgląd nadchodzących wizyt.
 
 ### 4. Panel Administratora
 Pełna kontrola nad systemem:
-* **Zarządzanie personelem:** Rejestracja nowych lekarzy i pracowników.
-* **Magazyn Leków:** Kontrola stanów magazynowych, dodawanie nowych partii leków.
-* **Raporty i Statystyki:** Przegląd wszystkich wizyt w klinice.
+* **Zarządzanie Użytkownikami:** Możliwość usuwania kont lekarzy, administratorów i klientów.
+* **Magazyn Centralny:** Dodawanie, edycja i kontrola asortymentu medycznego.
+* **Raporty:** Przegląd aktywności w klinice.
 
 ---
 
 ## Technologie
 
-Projekt został zrealizowany przy użyciu następujących technologii:
+Projekt został zrealizowany przy użyciu nowoczesnego stosu technologicznego:
 
 * **Backend:** PHP 8.2+, Laravel 10/11
-* **Frontend:** Blade Templates
+* **Baza Danych:** SQLite (Lekka, bezserwerowa baza w pliku - idealna do przenoszenia projektu)
+* **Frontend:** Blade Templates, Tailwind CSS (Medical Modern UI)
+* **Testy:** PHPUnit (Feature Tests z bazą in-memory)
 
 ---
 
@@ -51,7 +55,7 @@ Aby uruchomić projekt w środowisku lokalnym, wykonaj następujące kroki:
 
 1.  **Sklonuj repozytorium:**
     ```bash
-    git clone [https://github.com/twoj-nick/vetcare-project.git](https://github.com/twoj-nick/vetcare-project.git)
+    git clone [https://github.com/kacprow21324/laravel-project](https://github.com/kacprow21324/laravel-project)
     cd zad9_12_projekt_Woszczyło_21324
     ```
 
@@ -89,6 +93,14 @@ Aby uruchomić projekt w środowisku lokalnym, wykonaj następujące kroki:
     ```
 
 ---
+
+## Testy Automatyczne
+
+Projekt posiada zestaw testów jednostkowych/funkcjonalnych (Feature Tests) sprawdzających kluczową logikę biznesową (godziny pracy, walidację danych). Testy wykonywane są w pamięci RAM (in-memory), więc nie resetują głównej bazy danych.
+
+**Uruchomienie testów:**
+```bash
+php artisan test
 
 ## Konta Testowe
 

@@ -89,7 +89,7 @@
             
             <article class="grid md:grid-cols-2 gap-12 items-center mb-12">
                 <div>
-                    <img src="{{ asset('image/tło.jpg') }}" alt="Doświadczony zespół weterynarzy z psem na trawie" class="rounded-lg shadow-lg w-full h-auto object-cover" loading="lazy">
+                    <img src="{{ asset('image/weterynarz_pies.jpg') }}" alt="Weterynarz badający psa na stole zabiegowym" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
                 </div>
                 <div>
                     <h3 class="text-3xl font-bold mb-4 text-gray-800">Doświadczony Zespół</h3>
@@ -115,7 +115,7 @@
                     </p>
                 </div>
                 <div class="order-1 md:order-2">
-                    <img src="{{ asset('image/tło.jpg') }}" alt="Szczęśliwy pies biegnący po piasku" class="rounded-lg shadow-lg w-full h-auto object-cover" loading="lazy">
+                    <img src="{{ asset('image/sprzet.jpg') }}" alt="Weterynarz badający psa na stole zabiegowym" class="rounded-xl shadow-xl w-full h-[400px] object-cover">
                 </div>
             </article>
         </div>

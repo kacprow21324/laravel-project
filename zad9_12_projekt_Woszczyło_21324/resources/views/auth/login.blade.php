@@ -46,7 +46,6 @@
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow"
                     placeholder="twoj@email.pl"
                     aria-describedby="email-help"
-                    aria-required="true"
                 >
                 <p id="email-help" class="text-sm text-gray-500 mt-1">Podaj adres e-mail używany podczas rejestracji</p>
                 @error('email')
@@ -66,18 +65,10 @@
                     autocomplete="current-password"
                     class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 shadow-sm hover:shadow"
                     placeholder="********"
-                    aria-required="true"
                 >
                 @error('haslo')
                     <span class="text-red-500 text-sm mt-1 block" role="alert">{{ $message }}</span>
                 @enderror
-            </div>
-
-            <div class="mb-6">
-                <div class="flex items-center">
-                    <input type="checkbox" name="remember" id="remember" class="form-checkbox h-5 w-5 text-teal-600 rounded border-gray-300 focus:ring-teal-500 transition-all">
-                    <label for="remember" class="ml-2 text-gray-700 cursor-pointer">Zapamiętaj mnie na tym urządzeniu</label>
-                </div>
             </div>
 
             <button 

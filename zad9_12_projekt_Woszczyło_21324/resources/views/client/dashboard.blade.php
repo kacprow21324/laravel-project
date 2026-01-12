@@ -30,47 +30,69 @@
                 <div>
                     <label for="imie" class="block text-sm font-medium text-gray-700 mb-1">Imię zwierzaka *</label>
                     <input type="text" name="imie" id="imie" required 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                           placeholder="np. Burek">
+                           class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('imie') border-red-500 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror"
+                           placeholder="np. Burek"
+                           value="{{ old('imie') }}">
+                    @error('imie')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
                     <label for="gatunek_id" class="block text-sm font-medium text-gray-700 mb-1">Gatunek *</label>
                     <select name="gatunek_id" id="gatunek_id" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('gatunek_id') border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror">
                         <option value="">-- Wybierz gatunek --</option>
                         @foreach($gatunki as $gatunek)
-                            <option value="{{ $gatunek->id }}">{{ $gatunek->nazwa }}</option>
+                            <option value="{{ $gatunek->id }}" {{ old('gatunek_id') == $gatunek->id ? 'selected' : '' }}>{{ $gatunek->nazwa }}</option>
                         @endforeach
                     </select>
+                    @error('gatunek_id')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="plec" class="block text-sm font-medium text-gray-700 mb-1">Płeć *</label>
                         <select name="plec" id="plec" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('plec') border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror">
                             <option value="">-- Wybierz --</option>
-                            <option value="samiec">Samiec</option>
-                            <option value="samica">Samica</option>
+                            <option value="samiec" {{ old('plec') == 'samiec' ? 'selected' : '' }}>Samiec</option>
+                            <option value="samica" {{ old('plec') == 'samica' ? 'selected' : '' }}>Samica</option>
                         </select>
+                        @error('plec')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="data_urodzenia" class="block text-sm font-medium text-gray-700 mb-1">Data urodzenia</label>
                         <input type="date" name="data_urodzenia" id="data_urodzenia"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('data_urodzenia') border-red-500 text-red-900 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror"
+                               value="{{ old('data_urodzenia') }}">
+                        @error('data_urodzenia')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="waga" class="block text-sm font-medium text-gray-700 mb-1">Waga (kg)</label>
-                        <input type="number" name="waga" id="waga" step="0.01" min="0"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                               placeholder="np. 5.50">
+                        <input type="number" name="waga" id="waga" step="0.01" min="0.01"
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('waga') border-red-500 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror"
+                               placeholder="np. 5.50"
+                               value="{{ old('waga') }}">
+                        @error('waga')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div>
                         <label for="nr_czipa" class="block text-sm font-medium text-gray-700 mb-1">Nr czipa</label>
                         <input type="text" name="nr_czipa" id="nr_czipa"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                               placeholder="Opcjonalnie">
+                               class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 @error('nr_czipa') border-red-500 text-red-900 placeholder-red-300 focus:ring-red-500 focus:border-red-500 @else border-gray-300 @enderror"
+                               placeholder="Opcjonalnie"
+                               value="{{ old('nr_czipa') }}">
+                        @error('nr_czipa')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <button type="submit" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition">
@@ -92,11 +114,10 @@
                     @csrf
                     <div>
                         <label for="zwierze_id" class="block text-sm font-medium text-gray-700 mb-1">
-                            Zwierzę <span class="text-red-600" aria-label="pole wymagane">*</span>
+                            Zwierzę <span class="text-red-600" aria-hidden="true">*</span>
                         </label>
                         <select name="zwierze_id" id="zwierze_id" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                                aria-required="true"
                                 aria-describedby="zwierze-help">
                             <option value="">-- Wybierz zwierzę --</option>
                             @foreach($zwierzeta as $zwierze)
@@ -110,11 +131,10 @@
                     </div>
                     <div>
                         <label for="usluga_id" class="block text-sm font-medium text-gray-700 mb-1">
-                            Rodzaj usługi <span class="text-red-600" aria-label="pole wymagane">*</span>
+                            Rodzaj usługi <span class="text-red-600" aria-hidden="true">*</span>
                         </label>
                         <select name="usluga_id" id="usluga_id" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                                aria-required="true"
                                 aria-describedby="usluga-help">
                             <option value="">-- Wybierz usługę --</option>
                             @foreach($uslugi as $usluga)
@@ -128,12 +148,11 @@
                     </div>
                     <div>
                         <label for="data_wizyty" class="block text-sm font-medium text-gray-700 mb-1">
-                            Preferowana data i godzina <span class="text-red-600" aria-label="pole wymagane">*</span>
+                            Preferowana data i godzina <span class="text-red-600" aria-hidden="true">*</span>
                         </label>
-                        <input type="datetime-local" name="data_wizyty" id="data_wizyty" required
+                           <input type="datetime-local" name="data_wizyty" id="data_wizyty" required
                                min="{{ now()->addDay()->format('Y-m-d\TH:i') }}"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-                               aria-required="true"
                                aria-describedby="data-help">
                         <p id="data-help" class="text-xs text-gray-500 mt-1">Wizyta nie wcześniej niż jutro</p>
                         @error('data_wizyty')
@@ -142,12 +161,11 @@
                     </div>
                     <div>
                         <label for="opis_zgloszenia" class="block text-sm font-medium text-gray-700 mb-1">
-                            Opis problemu / powód wizyty <span class="text-red-600" aria-label="pole wymagane">*</span>
+                            Opis problemu / powód wizyty <span class="text-red-600" aria-hidden="true">*</span>
                         </label>
                         <textarea name="opis_zgloszenia" id="opis_zgloszenia" rows="3" required
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                                   placeholder="Opisz powód wizyty lub objawy..."
-                                  aria-required="true"
                                   aria-describedby="opis-help"></textarea>
                         <p id="opis-help" class="text-xs text-gray-500 mt-1">Opisz objawy, aby lekarz mógł się lepiej przygotować</p>
                         @error('opis_zgloszenia')

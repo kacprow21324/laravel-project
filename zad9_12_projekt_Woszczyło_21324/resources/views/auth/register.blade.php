@@ -44,7 +44,6 @@
                         autocomplete="given-name"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         placeholder="Jan"
-                        aria-required="true"
                     >
                     @error('imie')
                         <span class="text-red-500 text-sm mt-1 block" role="alert">{{ $message }}</span>
@@ -64,7 +63,6 @@
                         autocomplete="family-name"
                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                         placeholder="Kowalski"
-                        aria-required="true"
                     >
                     @error('nazwisko')
                         <span class="text-red-500 text-sm mt-1 block" role="alert">{{ $message }}</span>
@@ -85,7 +83,6 @@
                     autocomplete="email"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     placeholder="twoj@email.pl"
-                    aria-required="true"
                     aria-describedby="email-help"
                 >
                 <p id="email-help" class="text-sm text-gray-500 mt-1">Ten adres będzie służył do logowania</p>
@@ -126,7 +123,6 @@
                     autocomplete="new-password"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     placeholder="Minimum 6 znaków"
-                    aria-required="true"
                     aria-describedby="haslo-help"
                 >
                 <p id="haslo-help" class="text-sm text-gray-500 mt-1">Minimum 6 znaków</p>
@@ -147,7 +143,6 @@
                     autocomplete="new-password"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                     placeholder="Powtórz hasło"
-                    aria-required="true"
                 >
             </div>
 

@@ -129,4 +129,44 @@ class AdminController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Wizyta została przydzielona do lekarza i zatwierdzona!');
     }
+
+    /**
+     * Dodaj nowy lek do magazynu.
+     */
+    public function storeLek(Request $request)
+    {
+        $request->validate([
+            'nazwa' => 'required|string|max:200',
+            'ilosc_na_stanie' => 'required|integer|min:0',
+            'jednostka' => 'required|string|max:50',
+            'cena_jednostkowa' => 'required|numeric|min:0',
+        ]);
+
+        Lek::create([
+            'nazwa' => $request->nazwa,
+            'ilosc_na_stanie' => $request->ilosc_na_stanie,
+            'jednostka' => $request->jednostka,
+            'cena_jednostkowa' => $request->cena_jednostkowa,
+        ]);
+
+        return redirect()->back()->with('success', 'Lek został dodany do magazynu!');
+    }
+
+    /**
+     * Usuń użytkownika z systemu.
+     */
+    public function destroyUser($id)
+    {
+        $user = Uzytkownik::findOrFail($id);
+        
+        // Nie pozwól usunąć samego siebie
+        if ($user->id === auth()->id()) {
+            return redirect()->route('admin.dashboard')->with('error', 'Nie możesz usunąć własnego konta!');
+        }
+
+        $nazwa = $user->imie . ' ' . $user->nazwisko;
+        $user->delete();
+
+        return redirect()->route('admin.dashboard')->with('success', "Użytkownik {$nazwa} został usunięty!");
+    }
 }

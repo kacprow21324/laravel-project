@@ -62,4 +62,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/panel-admin/leki', [AdminController::class, 'leki'])->name('admin.leki');
     Route::post('/panel-admin/pracownicy', [AdminController::class, 'storePracownik'])->name('admin.pracownicy.store');
     Route::post('/panel-admin/wizyty/{id}/przydziel', [AdminController::class, 'przydzielLekarza'])->name('admin.wizyty.przydziel');
+    Route::delete('/panel-admin/uzytkownicy/{id}', [AdminController::class, 'destroyUser'])->name('admin.uzytkownicy.destroy');
+});
+
+// ===== WSPÓLNE ROUTE DLA ADMINA I WETERYNARZA =====
+Route::middleware(['auth'])->group(function () {
+    Route::post('/leki', [AdminController::class, 'storeLek'])->name('leki.store');
 });
