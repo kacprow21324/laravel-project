@@ -103,6 +103,8 @@ Projekt posiada zestaw testów jednostkowych/funkcjonalnych (Feature Tests) spra
 **Uruchomienie testów:**
 ```bash
 php artisan test
+```
+---
 
 ## Konta Testowe
 
@@ -132,3 +134,4 @@ Poniższy diagram przedstawia strukturę tabel oraz relacje między nimi w syste
 **Kacper Woszczyło**
 Nr indeksu: 21324
 Projekt zaliczeniowy: Aplikacje Internetowe I
+
