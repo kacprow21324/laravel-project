@@ -134,7 +134,7 @@ class StaffController extends Controller
                 ->with('error', "Brak wystarczającej ilości leku '{$lek->nazwa}' w magazynie! Dostępne: {$lek->ilosc_na_stanie} {$lek->jednostka}.");
         }
 
-        // Zmniejsz stan magazynowy
+        // Zmniejsz stan magazynowy (lek pozostaje w bazie nawet przy stanie 0 - NIE jest usuwany)
         $lek->decrement('ilosc_na_stanie', $request->ilosc);
 
         // Przypisz lek do wizyty (attach do pivot table)
@@ -183,5 +183,35 @@ class StaffController extends Controller
             ->get();
         
         return view('staff.pacjent', compact('zwierze', 'wizyty', 'dokumentacje'));
+    }
+
+    /**
+     * Wyświetl bazę wszystkich pacjentów (zwierząt) w systemie.
+     */
+    public function pacjenci(Request $request)
+    {
+        $query = Zwierze::with(['gatunek', 'uzytkownik']);
+        
+        // Wyszukiwanie po nazwie zwierzęcia lub właściciela
+        if ($request->filled('szukaj')) {
+            $szukaj = $request->input('szukaj');
+            $query->where(function($q) use ($szukaj) {
+                $q->where('imie', 'like', "%{$szukaj}%")
+                  ->orWhereHas('uzytkownik', function($q2) use ($szukaj) {
+                      $q2->where('imie', 'like', "%{$szukaj}%")
+                         ->orWhere('nazwisko', 'like', "%{$szukaj}%");
+                  });
+            });
+        }
+
+        // Filtrowanie po gatunku
+        if ($request->filled('gatunek')) {
+            $query->where('gatunek_id', $request->input('gatunek'));
+        }
+        
+        $zwierzeta = $query->orderBy('imie')->paginate(15);
+        $gatunki = \App\Models\Gatunek::orderBy('nazwa')->get();
+        
+        return view('staff.pacjenci', compact('zwierzeta', 'gatunki'));
     }
 }

@@ -76,27 +76,6 @@
                 @endforelse
             </div>
 
-            <!-- CTA -->
-            <div class="mt-16 text-center">
-                <div class="bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-bold text-white mb-4">Chcesz umówić wizytę?</h3>
-                    <p class="text-white/90 mb-6">Zaloguj się do swojego konta lub zarejestruj, aby umówić wizytę online.</p>
-                    <div class="flex justify-center gap-4 flex-wrap">
-                        @guest
-                            <a href="{{ route('login') }}" class="bg-white text-teal-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg transform hover:scale-105 duration-300">
-                                Zaloguj się
-                            </a>
-                            <a href="{{ route('register') }}" class="bg-teal-800 text-white px-6 py-3 rounded-xl font-bold hover:bg-teal-900 transition shadow-lg transform hover:scale-105 duration-300 border-2 border-white/30">
-                                Zarejestruj się
-                            </a>
-                        @else
-                            <a href="{{ route('client.dashboard') }}" class="bg-white text-teal-700 px-6 py-3 rounded-xl font-bold hover:bg-gray-100 transition shadow-lg transform hover:scale-105 duration-300">
-                                Przejdź do panelu
-                            </a>
-                        @endguest
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 @endsection

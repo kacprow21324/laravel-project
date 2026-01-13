@@ -16,10 +16,16 @@
                 </h1>
                 <p class="text-gray-600 mt-2">
                     Witaj, dr {{ $user->imie }} {{ $user->nazwisko }}!
-                    <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-sm ml-2">Lekarz weterynarii</span>
+                    <span class="bg-teal-100 text-teal-800 px-2 py-1 rounded text-sm ml-2">Weterynarz</span>
                 </p>
             </div>
             <div class="flex gap-3">
+                <a href="{{ route('pacjenci.index') }}" class="bg-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-teal-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    Baza Pacjentów
+                </a>
                 <a href="{{ route('staff.leki') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
@@ -139,7 +145,7 @@
                                            class="bg-teal-600 text-white px-3 py-1 rounded text-sm hover:bg-teal-700 transition">
                                             Karta wizyty
                                         </a>
-                                        <a href="{{ route('staff.pacjent', $wizyta->zwierze->id) }}" 
+                                        <a href="{{ route('pacjenci.show', $wizyta->zwierze->id) }}" 
                                            class="bg-gray-500 text-white px-3 py-1 rounded text-sm hover:bg-gray-600 transition">
                                             Pacjent
                                         </a>
@@ -204,7 +210,7 @@
                                     {{ Str::limit($wizyta->opis_zgloszenia, 40) }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ route('staff.pacjent', $wizyta->zwierze->id) }}" 
+                                    <a href="{{ route('pacjenci.show', $wizyta->zwierze->id) }}" 
                                        class="text-teal-600 hover:text-teal-800 font-medium">
                                         Zobacz kartę
                                     </a>

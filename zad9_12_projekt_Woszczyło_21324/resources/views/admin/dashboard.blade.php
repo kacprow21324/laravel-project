@@ -20,12 +20,30 @@
                     <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm ml-2">Administrator</span>
                 </p>
             </div>
-            <div class="flex gap-3">
+            <div class="flex gap-3 flex-wrap">
+                <a href="{{ route('admin.users.index') }}" class="bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    Użytkownicy
+                </a>
+                <a href="{{ route('admin.uslugi.index') }}" class="bg-teal-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-teal-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    Usługi
+                </a>
                 <a href="{{ route('admin.leki') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                     </svg>
                     Magazyn leków
+                </a>
+                <a href="{{ route('pacjenci.index') }}" class="bg-pink-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-pink-700 transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                    Baza Pacjentów
                 </a>
             </div>
         </div>
@@ -219,7 +237,7 @@
                         <th class="px-6 py-4 text-left font-semibold">Pacjent</th>
                         <th class="px-6 py-4 text-left font-semibold">Właściciel</th>
                         <th class="px-6 py-4 text-left font-semibold">Opis zgłoszenia</th>
-                        <th class="px-6 py-4 text-left font-semibold">Przydziel lekarza</th>
+                            <th class="px-6 py-4 text-left font-semibold">Przydziel weterynarza</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -238,18 +256,28 @@
                                 {{ Str::limit($wizyta->opis_zgloszenia, 50) }}
                             </td>
                             <td class="px-6 py-4">
-                                <form action="{{ route('admin.wizyty.przydziel', $wizyta->id) }}" method="POST" class="flex gap-2">
-                                    @csrf
-                                    <select name="lekarz_id" required class="border border-gray-300 rounded px-2 py-1 text-sm">
-                                        <option value="">-- Wybierz --</option>
-                                        @foreach($weterynarze as $wet)
-                                            <option value="{{ $wet->id }}">{{ $wet->imie }} {{ $wet->nazwisko }}</option>
-                                        @endforeach
-                                    </select>
-                                    <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
-                                        Zatwierdź
-                                    </button>
-                                </form>
+                                <div class="flex gap-2 items-center">
+                                    <form action="{{ route('admin.wizyty.przydziel', $wizyta->id) }}" method="POST" class="flex gap-2">
+                                        @csrf
+                                        <select name="lekarz_id" required class="border border-gray-300 rounded px-2 py-1 text-sm">
+                                            <option value="">-- Wybierz --</option>
+                                            @foreach($weterynarze as $wet)
+                                                <option value="{{ $wet->id }}">{{ $wet->imie }} {{ $wet->nazwisko }}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                                            Zatwierdź
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.wizyty.anuluj', $wizyta->id) }}" method="POST" 
+                                          onsubmit="return confirm('Czy na pewno chcesz anulować tę wizytę?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700">
+                                            Anuluj
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

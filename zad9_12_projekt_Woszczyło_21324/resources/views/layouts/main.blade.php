@@ -42,7 +42,7 @@
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                     <a href="{{ route('oferta') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-200 relative group">
-                        Oferta
+                        Dostępne Badania
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-cyan-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </div>
@@ -79,7 +79,7 @@
                         @if(auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="text-teal-600 hover:text-teal-800 font-medium">Panel Admina</a>
                         @elseif(auth()->user()->isWeterynarz())
-                            <a href="{{ route('staff.dashboard') }}" class="text-teal-600 hover:text-teal-800 font-medium">Panel Lekarza</a>
+                            <a href="{{ route('staff.dashboard') }}" class="text-teal-600 hover:text-teal-800 font-medium">Panel Weterynarza</a>
                         @else
                             <a href="{{ route('client.dashboard') }}" class="text-teal-600 hover:text-teal-800 font-medium">Mój Panel</a>
                         @endif
@@ -152,9 +152,7 @@
                 <div>
                     <h3 class="text-lg font-bold mb-4 text-white">Godziny otwarcia</h3>
                     <dl class="space-y-2 text-gray-400">
-                        <div class="flex justify-between"><dt>Pon-Pt:</dt> <dd class="text-white font-medium">8:00 - 20:00</dd></div>
-                        <div class="flex justify-between"><dt>Sob:</dt> <dd class="text-white font-medium">9:00 - 15:00</dd></div>
-                        <div class="flex justify-between"><dt>Nd:</dt> <dd class="text-red-400 font-medium">Zamknięte</dd></div>
+                        <div class="flex justify-between"><dt>Pon - Nd:</dt> <dd class="text-white font-medium">08:00 - 20:00</dd></div>
                     </dl>
                 </div>
             </div>

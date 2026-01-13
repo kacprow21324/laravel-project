@@ -17,6 +17,100 @@ use App\Models\DokumentacjaMedyczna;
 class DatabaseSeeder extends Seeder
 {
     /**
+     * Realistyczne opisy zgłoszeń dla wizyt weterynaryjnych.
+     */
+    private array $opisyZgloszen = [
+        'Pies kuleje na lewą tylną łapę od wczoraj.',
+        'Kot nie chce jeść od 2 dni, jest osowiały.',
+        'Kontrola po zabiegu sterylizacji.',
+        'Szczepienie przeciw wściekliźnie - przypomnienie.',
+        'Zwierzę ma problemy z oddychaniem, kaszel.',
+        'Podejrzenie pasożytów - drapanie, wypadanie sierści.',
+        'Wymioty i biegunka od rana.',
+        'Kontrola szczeniaka - pierwsze szczepienia.',
+        'Rana na łapie po ugryzieniu przez innego psa.',
+        'Problemy z uszami - potrząsanie głową, nieprzyjemny zapach.',
+        'Guz na brzuchu - do zbadania.',
+        'Pies ciężko dyszy, nie chce wychodzić na spacer.',
+        'Kot ma łzawiące oczy i kicha.',
+        'Kontrola po leczeniu antybiotykiem.',
+        'Zwierzę przybrało na wadze, zmiana diety.',
+        'Problemy z zębami, nieprzyjemny oddech.',
+        'Kulawizna przedniej łapy.',
+        'Alergia skórna, intensywne drapanie.',
+        'Szczepienie podstawowe - 8 tygodni.',
+        'Zwierzę jest apatyczne, mało aktywne.',
+        'Kontrola po operacji usunięcia guza.',
+        'Ukąszenie przez kleszcza.',
+        'Problemy z trawieniem, wzdęcia.',
+        'Kontrola ciąży.',
+        'Badanie przed planowaną sterylizacją.',
+    ];
+
+    /**
+     * Realistyczne zalecenia weterynaryjne.
+     */
+    private array $zalecenia = [
+        'Dieta lekkostrawna przez 3 dni. Małe porcje podawane częściej.',
+        'Podawać lek Amoxicylina 2x dziennie przez 7 dni.',
+        'Kontrola za tydzień. Obserwować stan ogólny.',
+        'Ograniczenie ruchu przez 10 dni. Spacery tylko na smyczy.',
+        'Stosować maść na ranę 2x dziennie. Utrzymywać ranę w czystości.',
+        'Zmiana karmy na hypoalergiczną. Unikać przekąsek.',
+        'Podawać probiotyki przez 5 dni. Dużo wody.',
+        'Kołnierz ochronny przez 7 dni. Kontrola szwów za 10 dni.',
+        'Krople do oczu 3x dziennie przez 5 dni.',
+        'Krople do uszu rano i wieczorem przez 7 dni.',
+        'Podawać tabletkę przeciwbólową według potrzeb, max 2x dziennie.',
+        'Obserwacja w domu. W razie pogorszenia natychmiastowy kontakt.',
+        'Regularne czesanie i kąpiele lecznicze co 3 dni.',
+        'Kontrola wagi za miesiąc. Zmniejszyć dzienne porcje o 20%.',
+        'Szczepienie przypominające za rok. Wpisać do kalendarza.',
+        'Odpoczynek przez 24h po zabiegu. Bez karmienia przez 12h.',
+        'Antybiotyk do końca opakowania, nawet po ustąpieniu objawów.',
+        'Regularna aktywność fizyczna, krótkie ale częste spacery.',
+    ];
+
+    /**
+     * Realistyczne diagnozy weterynaryjne.
+     */
+    private array $diagnozy = [
+        'Infekcja bakteryjna górnych dróg oddechowych. Rokowanie dobre.',
+        'Zapalenie stawu kolanowego. Zalecany odpoczynek.',
+        'Alergia pokarmowa. Konieczna dieta eliminacyjna.',
+        'Pasożyty zewnętrzne (pchły). Wdrożono leczenie.',
+        'Stan po zabiegu prawidłowy. Gojenie przebiega bez powikłań.',
+        'Zapalenie ucha środkowego. Etiologia bakteryjna.',
+        'Nieżyt żołądkowo-jelitowy. Prawdopodobnie dietetyczny.',
+        'Brak niepokojących objawów. Kontrola profilaktyczna.',
+        'Rana szarpana, wymagała szycia. 4 szwy.',
+        'Nadwaga. BMI powyżej normy dla rasy.',
+        'Zapalenie dziąseł. Kamień nazębny do usunięcia.',
+        'Reakcja alergiczna skórna. Przyczyna do ustalenia.',
+        'Zapalenie spojówek. Etiologia wirusowa.',
+        'Guz łagodny (tłuszczak). Obserwacja, bez interwencji.',
+        'Zwichnięcie łapy. Założony opatrunek stabilizujący.',
+    ];
+
+    /**
+     * Losuje element z tablicy.
+     */
+    private function losujOpis(): string
+    {
+        return $this->opisyZgloszen[array_rand($this->opisyZgloszen)];
+    }
+
+    private function losujZalecenie(): string
+    {
+        return $this->zalecenia[array_rand($this->zalecenia)];
+    }
+
+    private function losujDiagnoze(): string
+    {
+        return $this->diagnozy[array_rand($this->diagnozy)];
+    }
+
+    /**
      * Seed the application's database.
      */
     public function run(): void
@@ -221,7 +315,7 @@ class DatabaseSeeder extends Seeder
                 'zwierze_id' => $wszystkieZwierzeta[array_rand($wszystkieZwierzeta)]->id,
                 'data_wizyty' => $dzisiaj->copy()->setTime($h, 0),
                 'status' => fake()->randomElement(['umowiona', 'oczekujaca']),
-                'opis_zgloszenia' => fake()->sentence(10),
+                'opis_zgloszenia' => $this->losujOpis(),
             ]);
         }
 
@@ -232,7 +326,18 @@ class DatabaseSeeder extends Seeder
                 'zwierze_id' => $wszystkieZwierzeta[array_rand($wszystkieZwierzeta)]->id,
                 'data_wizyty' => now()->addDays(rand(1, 7))->setTime(rand(9, 16), 0),
                 'status' => 'oczekujaca',
-                'opis_zgloszenia' => fake()->sentence(10),
+                'opis_zgloszenia' => $this->losujOpis(),
+            ]);
+        }
+
+        // Dodaj puste sloty (niezarezerwowane terminy) dla testów admina
+        for ($i = 0; $i < 3; $i++) {
+            Wizyta::create([
+                'lekarz_id' => $weterynarze[array_rand($weterynarze)]->id,
+                'zwierze_id' => null, // Pusty slot - brak pacjenta
+                'data_wizyty' => now()->addDays(rand(1, 5))->setTime(rand(9, 17), 0),
+                'status' => 'wolny',
+                'opis_zgloszenia' => 'Dostępny termin',
             ]);
         }
 
@@ -259,7 +364,7 @@ class DatabaseSeeder extends Seeder
                     'zwierze_id' => $zwierze->id,
                     'data_wizyty' => $dataWizyty,
                     'status' => $status,
-                    'opis_zgloszenia' => fake()->sentence(10),
+                    'opis_zgloszenia' => $this->losujOpis(),
                 ]);
 
                 // Dla wizyt zakończonych dodajemy usługi, leki i dokumentację
@@ -285,12 +390,12 @@ class DatabaseSeeder extends Seeder
                         ]);
                     }
 
-                    // Utworzenie dokumentacji medycznej
+                    // Utworzenie dokumentacji medycznej z realistycznymi danymi
                     DokumentacjaMedyczna::create([
                         'wizyta_id' => $wizyta->id,
-                        'diagnoza' => fake()->sentence(15),
-                        'zalecenia' => fake()->paragraph(3),
-                        'temperatura' => fake()->randomFloat(2, 36.5, 40.5),
+                        'diagnoza' => $this->losujDiagnoze(),
+                        'zalecenia' => $this->losujZalecenie(),
+                        'temperatura' => fake()->randomFloat(1, 37.5, 39.5),
                     ]);
                 }
             }

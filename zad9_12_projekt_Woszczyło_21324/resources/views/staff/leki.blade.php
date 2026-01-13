@@ -25,7 +25,8 @@
         </div>
     </div>
 
-    <!-- Formularz dodawania leku -->
+    <!-- Formularz dodawania leku - tylko dla admina -->
+    @if(Auth::user()->isAdmin())
     <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
         <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,6 +70,7 @@
             </div>
         </form>
     </div>
+    @endif
 
     <!-- Statystyki magazynu -->
     <div class="mb-8">
@@ -142,6 +144,9 @@
                             <th class="px-6 py-4 text-left font-semibold">Cena jednostkowa</th>
                             <th class="px-6 py-4 text-left font-semibold">Ilość na stanie</th>
                             <th class="px-6 py-4 text-left font-semibold">Status</th>
+                            @if(Auth::user()->isAdmin())
+                            <th class="px-6 py-4 text-left font-semibold">Akcje</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -180,6 +185,17 @@
                                         </span>
                                     @endif
                                 </td>
+                                @if(Auth::user()->isAdmin())
+                                <td class="px-6 py-4">
+                                    <a href="{{ route('admin.leki.edit', $lek->id) }}" 
+                                       class="bg-blue-100 text-blue-600 hover:bg-blue-200 px-3 py-1 rounded text-sm transition inline-flex items-center gap-1">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        </svg>
+                                        Edytuj
+                                    </a>
+                                </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

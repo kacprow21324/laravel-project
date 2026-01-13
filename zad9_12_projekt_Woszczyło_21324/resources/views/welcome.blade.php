@@ -50,7 +50,7 @@
                         </a>
                     @elseif(auth()->user()->isWeterynarz())
                         <a href="{{ route('staff.dashboard') }}" class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-8 py-4 rounded-2xl font-bold text-xl hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 shadow-2xl transform hover:scale-105">
-                            Panel Lekarza
+                            Panel Weterynarza
                         </a>
                     @else
                         <a href="{{ route('client.dashboard') }}" class="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-4 rounded-2xl font-bold text-xl hover:from-teal-600 hover:to-cyan-600 transition-all duration-300 shadow-2xl transform hover:scale-105">

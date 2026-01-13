@@ -24,7 +24,7 @@ class ClientController extends Controller
         // Pobierz wizyty dla wszystkich zwierząt użytkownika
         foreach ($zwierzeta as $zwierze) {
             $wizytyZwierzecia = $zwierze->wizyty()
-                ->with(['lekarz', 'zwierze'])
+                ->with(['lekarz', 'zwierze', 'leki', 'dokumentacjaMedyczna'])
                 ->orderBy('data_wizyty', 'desc')
                 ->get();
             $wizyty = $wizyty->merge($wizytyZwierzecia);
@@ -131,5 +131,27 @@ class ClientController extends Controller
         ]);
 
         return redirect()->route('client.dashboard')->with('success', 'Wizyta została zarezerwowana! Oczekuje na zatwierdzenie przez klinikę.');
+    }
+
+    /**
+     * Wyświetl kartę pacjenta (tylko własne zwierzę klienta).
+     */
+    public function kartaPacjenta($id)
+    {
+        $user = auth()->user();
+        
+        // Pobierz zwierzę tylko jeśli należy do zalogowanego użytkownika
+        $zwierze = Zwierze::with(['gatunek'])
+            ->where('id', $id)
+            ->where('uzytkownik_id', $user->id)
+            ->firstOrFail();
+        
+        // Historia wizyt z dokumentacją i lekami
+        $wizyty = Wizyta::with(['lekarz', 'uslugi', 'leki', 'dokumentacjaMedyczna'])
+            ->where('zwierze_id', $id)
+            ->orderBy('data_wizyty', 'desc')
+            ->get();
+        
+        return view('client.karta-pacjenta', compact('zwierze', 'wizyty', 'user'));
     }
 }

@@ -4,6 +4,8 @@ Kompleksowa aplikacja internetowa stworzona w oparciu o framework Laravel, słu�
 
 Projekt kładzie szczególny nacisk na **dostępność cyfrową (WCAG 2.1 AA)**, poprawność semantyczną HTML5 oraz niezawodność potwierdzoną testami automatycznymi.
 
+![strona](diagram/strona.png)
+
 ## Kluczowe Funkcjonalności
 
 ### 1. Dostępność i UX (Premium Accessibility)
@@ -116,8 +118,17 @@ Po wykonaniu seedowania bazy danych (`migrate:fresh --seed`), dostępne są nast
 
 ---
 
+# Schemat Relacji Bazy Danych - VetCare
+
+Poniższy diagram przedstawia strukturę tabel oraz relacje między nimi w systemie.
+
+![Schemat Bazy Danych](diagram/diagram_w1.png)
+
+
+---
+
 ## Autor
 
 **Kacper Woszczyło**
 Nr indeksu: 21324
-Projekt zaliczeniowy: Aplikacje Internetowe
+Projekt zaliczeniowy: Aplikacje Internetowe I
