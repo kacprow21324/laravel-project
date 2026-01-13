@@ -121,12 +121,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">VetCare Klinika</h3>
+                        <p class="text-xl font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">VetCare Klinika</p>
                     </div>
                     <p class="text-gray-400 leading-relaxed">Profesjonalna opieka weterynaryjna od 2010 roku. Twój pupil w najlepszych rękach.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Kontakt</h3>
+                    <p class="text-lg font-bold mb-4 text-white">Kontakt</p>
                     <address class="not-italic space-y-2">
                         <p class="text-gray-400 flex items-center gap-2">
                             <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -150,7 +150,7 @@
                     </address>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4 text-white">Godziny otwarcia</h3>
+                    <p class="text-lg font-bold mb-4 text-white">Godziny otwarcia</p>
                     <dl class="space-y-2 text-gray-400">
                         <div class="flex justify-between"><dt>Pon - Nd:</dt> <dd class="text-white font-medium">08:00 - 20:00</dd></div>
                     </dl>

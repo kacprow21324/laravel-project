@@ -99,62 +99,9 @@
         </div>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-8 mb-8">
-        <!-- Formularz dodawania pracownika -->
-        <section class="bg-white rounded-xl shadow-lg p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                </svg>
-                Dodaj Pracownika
-            </h2>
-            <form action="{{ route('admin.pracownicy.store') }}" method="POST" class="space-y-4">
-                @csrf
-                <div>
-                    <label for="imie" class="block text-sm font-medium text-gray-700 mb-1">Imię *</label>
-                    <input type="text" name="imie" id="imie" required 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div>
-                    <label for="nazwisko" class="block text-sm font-medium text-gray-700 mb-1">Nazwisko *</label>
-                    <input type="text" name="nazwisko" id="nazwisko" required 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                    <input type="email" name="email" id="email" required 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div>
-                    <label for="telefon" class="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
-                    <input type="text" name="telefon" id="telefon"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div>
-                    <label for="haslo" class="block text-sm font-medium text-gray-700 mb-1">Hasło *</label>
-                    <input type="password" name="haslo" id="haslo" required minlength="6"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                </div>
-                <div>
-                    <label for="rola_id" class="block text-sm font-medium text-gray-700 mb-1">Rola *</label>
-                    <select name="rola_id" id="rola_id" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
-                        <option value="">-- Wybierz rolę --</option>
-                        @foreach($role as $rola)
-                            @if($rola->id != 3) {{-- Nie pokazuj roli Klient --}}
-                                <option value="{{ $rola->id }}">{{ $rola->nazwa }}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="w-full bg-purple-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-purple-700 transition">
-                    Dodaj pracownika
-                </button>
-            </form>
-        </section>
-
+    <div class="mb-8">
         <!-- Lista pracowników -->
-        <section class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
+        <section class="bg-white rounded-xl shadow-lg p-6">
             <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
